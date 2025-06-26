@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudarshan Reddy Rajapurada - Network Engineer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons (e.g., chevron for expand/collapse) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* GLOBAL STYLES */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #1a1a1a; /* Fallback very dark gray/black background */
+            color: #e5e7eb; /* Light gray text color for contrast */
+            /* Background image for cybersecurity/networking.
+               IMPORTANT: Host your image online (e.g., on Imgur, GitHub Pages, etc.) and replace
+               'https://placehold.co/1920x1080/1a1a1a/00FFFF/png?text=HOST_YOUR_IMAGE_HERE'
+               with the direct URL to your hosted image. This example URL is a placeholder. */
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex; /* Flexbox for layout */
+            flex-direction: column; /* Stack children vertically */
+        }
+        /* Overlay to ensure text readability on top of background image */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(26, 26, 26, 0.85); /* Semi-transparent dark overlay */
+            z-index: -1; /* Place behind content */
+        }
+
+        .main-content {
+            flex: 1; /* Allow main content to grow and push footer down */
+        }
+
+        /* General heading styling */
+        .section-heading {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px; /* Space for the underline effect */
+            font-size: 20px; /* Heading size */
+            color: #ffffff; /* White color for headings */
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70%; /* Shorter underline */
+            height: 3px;
+            background-color: #00FFFF; /* Bright Cyan accent for underline */
+            border-radius: 9999px; /* Fully rounded */
+        }
+
+        /* Ensure all general content/points are size 14px */
+        .text-content-14 {
+            font-size: 14px;
+        }
+
+        /* Custom styling for dark background elements */
+        .card-bg-dark {
+            background-color: #2c2c2c; /* Slightly lighter dark gray for cards */
+            color: #d1d5db; /* Light gray text for better visibility */
+            border-radius: 0.5rem; /* Consistent rounded corners */
+        }
+        .link-accent {
+            color: #00FFFF; /* Bright Cyan for links */
+        }
+        /* Tailwind's hover classes usually handle this, but for direct CSS */
+        .link-accent:hover {
+            color: #00cccc; /* Slightly darker cyan on hover */
+        }
+        /* Animation classes (keeping them for smooth transitions) */
+        .transition-transform {
+            transition: transform 0.3s ease-in-out;
+        }
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+        .hover\:shadow-lg:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Project description toggle */
+        .project-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            opacity: 0;
+            padding-top: 0; /* Initially no top padding */
+        }
+        .project-description.show {
+            max-height: 1000px; /* Increased max-height for extended content */
+            opacity: 1;
+            padding-top: 1rem; /* Add top padding when shown */
+        }
+        .project-title-container {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1); /* Subtle separator */
+        }
+        .project-title-container:hover .project-title {
+            color: #00cccc; /* Darker cyan on hover for title */
+        }
+        .project-title {
+            transition: color 0.3s ease-in-out;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .toggle-icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* Custom styles for project list items */
+        .project-list-item {
+            background-color: transparent; /* No background for list items */
+            border: none; /* No border */
+            box-shadow: none; /* No shadow */
+            padding: 0; /* No padding from the card-bg-dark */
+            margin-bottom: 1.5rem; /* Spacing between list items */
+            overflow: visible; /* Allow description to overflow */
+            transition: none; /* Remove hover scaling */
+        }
+        .project-list-item:hover {
+            transform: none; /* Remove hover scaling */
+            box-shadow: none; /* Remove hover shadow */
+        }
+        .project-list-item img {
+            display: none; /* Hide images in the list format */
+        }
+        .project-list-item .p-6 {
+            padding: 0; /* Remove internal padding if it causes issues */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="main-content">
+        <!-- Header Section -->
+        <header class="bg-gray-900 text-white p-6 md:p-8 shadow-sm border-b border-gray-700">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-xl font-bold mb-4 md:mb-0">
+                    <a href="#" class="hover:text-cyan-400 transition duration-300">Sudarshan Reddy Rajapurada</a>
+                </h1>
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-4 md:gap-8 text-xs">
+                        <li><a href="#about" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">About</a></li>
+                        <li><a href="#skills" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">Skills</a></li>
+                        <li><a href="#certifications" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">Certifications</a></li>
+                        <li><a href="#ccna-certification" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">CCNA</a></li>
+                        <li><a href="#projects" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">Projects</a></li>
+                        <li><a href="#publications" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">Publications</a></li>
+                        <li><a href="#contact" class="hover:text-cyan-400 transition duration-300 transition-transform hover:scale-105">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="bg-[#1a1a1a] text-white py-16 md:py-24 text-center mx-4 mt-8 rounded-lg">
+            <div class="container mx-auto px-4">
+                <!-- Profile Picture: IMPORTANT: Place 'profile-placeholder.png' in the same directory as this HTML file, or provide its URL -->
+                <img src="C:\Users\ASUS\OneDrive\Desktop\portfolio\profile.jpg" alt="Sudarshan Reddy Rajapurada Profile Picture" class="rounded-full border border-gray-700 mx-auto mb-6 shadow-md transition duration-500 hover:scale-105 w-40 h-40">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">Sudarshan Reddy Rajapurada</h2>
+                <p class="text-lg md:text-xl font-light text-content-14">Network & Cybersecurity Professional | Driving Secure, Scalable, and Future-Ready Solutions</p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#projects" class="bg-[#00FFFF] text-gray-900 font-bold py-3 px-8 rounded-md shadow-lg hover:bg-[#00cccc] transition duration-300 transition-transform hover:scale-105 inline-block text-content-14">View My Projects</a>
+                    <!-- Download Resume Button: IMPORTANT: Place 'Sudarshan-Reddy-Rajapurada-Resume.pdf' in the same directory as this HTML file, or provide its URL -->
+                    <a href="C:\Users\ASUS\OneDrive\Desktop\portfolio\Sudarshan-Reddy-Rajapurada-Resume.pdf" download="Sudarshan-Reddy-Rajapurada-Resume.pdf" class="border border-[#00FFFF] text-[#00FFFF] font-bold py-3 px-8 rounded-md shadow-md hover:bg-[#00FFFF] hover:text-gray-900 transition duration-300 transition-transform hover:scale-105 inline-block text-content-14">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="container mx-auto py-16 px-4">
+            <h3 class="section-heading text-center mb-12">About Me</h3>
+            <div class="card-bg-dark p-8 rounded-lg shadow-md leading-relaxed text-content-14">
+                <p class="mb-4">
+                    I am a highly motivated Network Engineer and Cybersecurity Professional with a proven track record
+                    in designing, securing, and optimizing enterprise network infrastructure. My expertise spans various
+                    leading technologies including Cisco, Palo Alto, Juniper Routers, and Fortigate Firewalls. I am deeply
+                    committed to building robust, scalable, and future-ready networks that meet evolving security demands.
+                </p>
+                <p class="mb-4">
+                    My passion lies in driving forward-thinking initiatives like Zero Trust architecture, SD-WAN, and cloud
+                    security integration. I possess a solid technical foundation in critical networking concepts including
+                    routing protocols (OSPF, EIGRP, BGP), VLANs, and high-availability configurations, ensuring maximum
+                    performance and uptime for critical systems.
+                </p>
+                <p>
+                    Beyond technical implementation, I excel in configuring and managing diverse network devices and security
+                    platforms for centralized policy enforcement, advanced threat mitigation, and in-depth log analysis.
+                    I am adept at fostering clear and effective communication between technical teams and non-technical stakeholders,
+                    ensuring project success through meticulous planning, execution, and documentation. My goal is to continuously
+                    expand my technical leadership and automation capabilities to deliver cutting-edge network solutions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Technical Proficiencies Section -->
+        <section id="skills" class="bg-[#1a1a1a] py-16 px-4">
+            <div class="container mx-auto">
+                <h3 class="section-heading text-center mb-12">Technical Proficiencies</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+                    <!-- Skill Category: Networking -->
+                    <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 link-accent">Networking</h4>
+                        <ul class="list-disc list-inside space-y-2 text-content-14">
+                            <li>Packet Forwarding</li>
+                            <li>VLANs</li>
+                            <li>Spanning Tree Protocol</li>
+                            <li>Routing (EIGRP, OSPF, BGP)</li>
+                            <li>QoS</li>
+                            <li>IP Services</li>
+                            <li>WLAN</li>
+                            <li>WAN</li>
+                            <li>VPN</li>
+                            <li>DNS</li>
+                            <li>DHCP</li>
+                            <li>Cisco Routers & Switches</li>
+                            <li>Cisco Meraki</li>
+                            <li>Cisco Modeling Labs</li>
+                            <li>Network Configuration</li>
+                            <li>Network Infrastructure</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Category: Network Security -->
+                    <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 link-accent">Network Security</h4>
+                        <ul class="list-disc list-inside space-y-2 text-content-14">
+                            <li>Firewall Configuration</li>
+                            <li>IDS & IPS</li>
+                            <li>Next-Gen Firewall (NGFW) Setup & Management</li>
+                            <li>Zone Security</li>
+                            <li>Security & NAT Policies</li>
+                            <li>APP-ID</li>
+                            <li>Device-ID</li>
+                            <li>User-ID</li>
+                            <li>Security Profiles</li>
+                            <li>Threat & Traffic Information</li>
+                            <li>WildFire Malware Analysis</li>
+                            <li>DoS Protection</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Category: Palo Alto & Panorama -->
+                    <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 link-accent">Palo Alto & Panorama</h4>
+                        <ul class="list-disc list-inside space-y-2 text-content-14">
+                            <li>Palo Alto NGFW</li>
+                            <li>Firewall Management via Panorama</li>
+                            <li>Panorama Templates & Device Groups</li>
+                            <li>Setup & Configuration</li>
+                            <li>Log Collectors & Forwarding</li>
+                            <li>Management/Administration</li>
+                            <li>Comprehensive Reporting</li>
+                            <li>Troubleshooting</li>
+                            <li>Debug-Level Packet Tracing</li>
+                            <li>Traffic Log Analysis</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Category: Tools & Automation -->
+                    <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                        <h4 class="text-xl font-semibold mb-4 link-accent">Tools & Automation</h4>
+                        <ul class="list-disc list-inside space-y-2 text-content-14">
+                            <li>Wireshark</li>
+                            <li>NMAP</li>
+                            <li>Metasploit</li>
+                            <li>Aircrack-ng</li>
+                            <li>Ansible</li>
+                            <li>GitHub</li>
+                            <li>Cisco Modeling Labs</li>
+                            <li>Linux</li>
+                            <li>Scripting: Python</li>
+                            <li>Java</li>
+                            <li>PowerShell</li>
+                            <li>Network Automation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Certifications Section -->
+        <section id="certifications" class="container mx-auto py-16 px-4">
+            <h3 class="section-heading text-center mb-12">Education & Certifications</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                    <h4 class="text-xl font-semibold mb-4 link-accent">Education</h4>
+                    <ul class="list-disc list-inside space-y-3 text-content-14">
+                        <li>
+                            Master of Science in Cybersecurity, DePaul University, Expected 2025
+                        </li>
+                        <li>
+                            Bachelor of Science in Computer Science, Visvesvaraya Technological University, 2022
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-bg-dark p-8 rounded-lg shadow-md transition-transform hover:scale-105 hover:shadow-lg">
+                    <h4 class="text-xl font-semibold mb-4 link-accent">Other Certifications & Courses</h4>
+                    <ul class="list-disc list-inside space-y-3 text-content-14">
+                        <li>Network Hacking Continued: Intermediate to Advanced - Udemy, 2023</li>
+                        <li>Learn Ethical Hacking from Scratch - Udemy, 2022</li>
+                        <li>Bug Bounty Hunting & Web Security Testing from Scratch - Udemy, 2022</li>
+                        <li>Social Engineering from Scratch - Udemy, 2022</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CCNA Certification Section -->
+        <section id="ccna-certification" class="bg-[#1a1a1a] py-16 px-4">
+            <div class="container mx-auto">
+                <h3 class="section-heading text-center mb-12">CCNA Certification</h3>
+                <div class="card-bg-dark p-8 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2 lg:w-1/3 flex justify-center">
+                        <!-- CCNA Certificate Image: IMPORTANT: Place 'image_e03603.png' in the same directory as this HTML file, or provide its URL -->
+                        <img src="C:\Users\ASUS\OneDrive\Desktop\portfolio\ccna.jpg" alt="Cisco Certified Network Associate Certificate" class="w-full max-w-xl h-auto rounded-lg shadow-md object-contain">
+                    </div>
+                    <div class="md:w-1/2 lg:w-2/3 text-content-14">
+                        <p class="mb-2">
+                            Cisco Certified Network Associate (CCNA 200-301)
+                        </p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Date Certified: July 22, 2024</li>
+                            <li>Valid Through: July 22, 2027</li>
+                            <li>Cisco ID No.: CSCO14684933</li>
+                            <li>Certificate Verification No.: 0776592e5d764544a61860801b11ef11</li>
+                            <li><a href="https://cp.certmetrics.com/cisco/en/public/verify/credential/0776592e5d764544a61860801b11ef11" target="_blank" class="link-accent hover:link-accent-darker">Verify Certificate Online</a></li>
+                        </ul>
+                        <p class="mt-4">
+                            The CCNA certification validates my foundational knowledge in networking, covering a broad range of topics essential for modern IT infrastructure. Key areas of study and expertise gained include:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 mt-2">
+                            <li>Network Fundamentals (Components, Topologies, TCP/IP Model)</li>
+                            <li>Network Access (VLANs, Trunks, EtherChannel, Wireless LANs)</li>
+                            <li>IP Connectivity (IPv4/IPv6 Routing, OSPF, EIGRP, Static Routing)</li>
+                            <li>IP Services (NAT, DHCP, DNS, NTP, QoS)</li>
+                            <li>Security Fundamentals (Threats, VPNs, ACLs, Layer 2 Security)</li>
+                            <li>Automation and Programmability (JSON, APIs, REST, SDN concepts)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-dark-background py-16 px-4">
+            <div class="container mx-auto">
+                <h3 class="section-heading text-center mb-12">Key Projects</h3>
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- Project 1: Firewall Configuration: Dual-Path, Dual-Layer Architecture -->
+                    <div class="project-list-item card-bg-dark p-6 rounded-lg shadow-md">
+                        <div class="project-title-container" onclick="toggleProjectDescription(this)">
+                            <h4 class="text-xl font-semibold link-accent project-title">Firewall Configuration: Dual-Path, Dual-Layer Architecture</h4>
+                            <i class="fas fa-chevron-down text-white toggle-icon"></i>
+                        </div>
+                        <div class="project-description text-content-14">
+                            <p class="mb-4">
+                                This extensive project involved the meticulous configuration of Cisco switches and the optimization of critical network maintenance protocols to establish a highly resilient and secure network infrastructure. A core achievement was the proposal and successful implementation of an Active/Passive high-availability firewall cluster, ensuring continuous uptime and peak performance for enterprise operations. This involved advanced configurations of HSRP (Hot Standby Router Protocol) on Cisco routers and firewalls, meticulously setting up active and standby units for automatic, seamless failover in the event of a primary device failure.
+                            </p>
+                            <p class="mb-4">
+                                I designed and deployed a robust network security framework specifically for Joe's Snacks, incorporating a sophisticated Dual-Path, Dual-Layer configuration. This architecture segregated traffic into distinct internal and external paths, complemented by multiple security layers, significantly enhancing the overall security posture and manageability of the network. The design focused on minimizing single points of failure, implementing redundant links, and providing deep packet inspection capabilities at various network segments.
+                            </p>
+                            <p class="mb-4">
+                                Key infrastructure components built during this project included:
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>Secure WAN connectivity via encrypted VPN tunnels, ensuring safe data transmission across geographically dispersed locations.</li>
+                                    <li>Hardened sales servers, achieved through the application of least privilege access principles, regular security patching, and comprehensive vulnerability assessments.</li>
+                                    <li>Resilient HR systems, by implementing Network Access Control (NAC) to authenticate and authorize devices connecting to the HR network, alongside finely-tuned access control lists (ACLs) to restrict sensitive data access.</li>
+                                </ul>
+                                This project comprehensively demonstrated my proficiency in end-to-end network solution deployment, advanced security hardening, and high-availability design principles critical for business continuity.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Project 2: Enterprise Network Design - Radeon Company Ltd. -->
+                    <div class="project-list-item card-bg-dark p-6 rounded-lg shadow-md">
+                        <div class="project-title-container" onclick="toggleProjectDescription(this)">
+                            <h4 class="text-xl font-semibold link-accent project-title">Enterprise Network Design - Radeon Company Ltd.</h4>
+                            <i class="fas fa-chevron-down text-white toggle-icon"></i>
+                        </div>
+                        <div class="project-description text-content-14">
+                            <p class="mb-4">
+                                As part of this capstone project, I architected a comprehensive and scalable hierarchical network solution tailored for a new four-story office building, strictly adhering to Cisco's recommended best practices for enterprise network design. The design meticulously planned and incorporated detailed VLAN segmentation (VLANs 10-120) across all floors and various departments (e.g., HR, Finance, IT, Guest networks) to logically separate and secure departmental traffic. This segmentation was crucial for preventing unauthorized cross-departmental access and significantly reducing broadcast domains, improving network efficiency.
+                            </p>
+                            <p class="mb-4">
+                                Advanced Cisco switching technologies (specifically, Catalyst series switches at the access, distribution, and core layers) were strategically leveraged to implement these VLANs efficiently. This included the intelligent use of VTP (VLAN Trunking Protocol) for simplified VLAN management across the network infrastructure. Furthermore, I successfully deployed OSPF (Open Shortest Path First) as the interior gateway protocol, ensuring efficient, dynamic, and resilient inter-VLAN communication. OSPF's fast convergence properties were critical in boosting overall LAN performance and enhancing network resilience by quickly rerouting traffic in case of link failures.
+                            </p>
+                            <p class="mb-4">
+                                The entire network design was rigorously validated and simulated using Cisco Modeling Labs (CML), a powerful network simulation tool. This virtual environment allowed for extensive testing of routing protocols (OSPF convergence, route redistribution), Quality of Service (QoS) policies (prioritizing voice and video traffic), and various security configurations (ACLs, port security) in a controlled setting. This thorough validation process ensured successful large-scale implementation and guaranteed optimal operational stability and performance before any physical deployment, mitigating potential risks and issues.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Project 3: Jarvis Voice Assistant (Python & Speech Recognition) -->
+                    <div class="project-list-item card-bg-dark p-6 rounded-lg shadow-md">
+                        <div class="project-title-container" onclick="toggleProjectDescription(this)">
+                            <h4 class="text-xl font-semibold mb-3 link-accent project-title">Jarvis Voice Assistant (Python & Speech Recognition)</h4>
+                            <i class="fas fa-chevron-down text-white toggle-icon"></i>
+                        </div>
+                        <div class="project-description text-content-14">
+                            <p class="mb-4">
+                                This project involved the development of a multifunctional voice assistant, affectionately named "Jarvis," built entirely using Python scripting. The core functionality relied on seamless integration with Google Speech Recognition APIs for advanced natural language processing, allowing users to interact with the system using spoken commands. While primarily a software development project, foundational Cisco networking knowledge was applied to conceptualize and design how such an assistant could hypothetically enhance network monitoring and interaction capabilities within a simulated network environment, for instance, by voice-commanding diagnostics or fetching network status.
+                            </p>
+                            <p class="mb-4">
+                                The project heavily utilized key Python libraries:
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>`pyttsx3`: Employed for high-quality, offline text-to-speech conversion, providing vocal feedback to the user.</li>
+                                    <li>`SpeechRecognition`: Integrated for accurate voice input processing, converting spoken words into actionable text commands.</li>
+                                    <li>Other libraries for specific tasks like `smtplib` for email dispatch, `webbrowser` for application launching, and `requests` for fetching real-time weather data by integrating with external APIs (e.g., OpenWeatherMap).</li>
+                                </ul>
+                            </p>
+                            <p class="mb-4">
+                                A significant focus was placed on implementing thorough documentation adhering to industry best practices, including detailed code comments, README files, and setup instructions. Rigorous unit and integration testing procedures were also put in place to ensure the system's reliability, stability, and robustness against various inputs and edge cases. This comprehensive approach ensured that Jarvis could perform seamless voice-driven tasks such as initiating email dispatch, launching specific network monitoring applications (like Wireshark or Cisco Packet Tracer in a simulated context), and providing real-time weather reports, showcasing strong Python development and API integration skills. This project culminated in a publication in the *International Journal of Innovative Research in Technology*.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Project 4: Dual Dataset Predictive Modeling - COVID-19 & Titanic -->
+                    <div class="project-list-item card-bg-dark p-6 rounded-lg shadow-md">
+                        <div class="project-title-container" onclick="toggleProjectDescription(this)">
+                            <h4 class="text-xl font-semibold mb-3 link-accent project-title">Dual Dataset Predictive Modeling - COVID-19 & Titanic</h4>
+                            <i class="fas fa-chevron-down text-white toggle-icon"></i>
+                            </div>
+                            <div class="project-description text-content-14">
+                                <p class="mb-4">
+                                    In this analytical project, I applied advanced machine learning techniques to build predictive models based on two distinct and complex datasets: COVID-19 patient data and historical Titanic passenger data. The primary objective was to generate actionable insights and predict outcomes. For the COVID-19 dataset, the focus was on predicting health outcomes (e.g., recovery vs. mortality) based on patient symptoms, demographics, and comorbidities. For the Titanic disaster dataset, the goal was to predict historical survival (e.g., survived vs. perished) based on features like age, class, and sex.
+                                </p>
+                                <p class="mb-4">
+                                    Key methodologies and activities included:
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li>Comprehensive Data Preprocessing: This involved meticulous handling of missing values (e.g., imputation techniques), feature scaling (standardization/normalization), and encoding categorical data (one-hot encoding) to prepare the datasets for model training.</li>
+                                        <li>Robust Model Training: I experimented with and trained various classification algorithms from the `scikit-learn` library, including Logistic Regression, Decision Trees, and Random Forests, selecting the most appropriate model for each dataset based on performance metrics.</li>
+                                        <li>Rigorous Cross-Validation: K-fold cross-validation was extensively used to ensure the models' generalization capability and prevent overfitting.</li>
+                                        <li>Performance Metric Evaluation: Models were thoroughly evaluated using a suite of performance metrics such as accuracy, precision, recall, and F1-score, providing a holistic view of their effectiveness.</li>
+                                    </ul>
+                                </p>
+                                <p class="mb-4">
+                                    These demonstrated analytical and predictive modeling skills are highly transferable and valuable across various IT roles, particularly in data-driven environments such as manufacturing and plant operations. They can be applied to diverse tasks like predictive maintenance of industrial equipment, anomaly detection in operational data, or optimizing resource allocation, enabling data-driven decision-making and significant operational optimization. This project highlights my ability to extract meaningful insights from complex data and build practical predictive solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="container mx-auto py-16 px-4">
+            <h3 class="section-heading text-center mb-12">Publications</h3>
+            <div class="card-bg-dark p-8 rounded-lg shadow-md leading-relaxed text-content-14">
+                <p class="mb-4">
+                    Sai Madhavi, D., Reddy, R. S., Shivakumar, M., Godinal, S., & Harshit, B. (2022).
+                    <a href="https://ijirt.org/publishedpaper/IJIRT155469_PAPER.pdf" target="_blank" class="link-accent hover:link-accent-darker">Jarvis Voice Assistance.</a> *International Journal of Innovative Research in Technology, 9*(1), 1317-1321.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-gray-900 text-white py-16 px-4 rounded-t-lg">
+            <div class="container mx-auto text-center">
+                <h3 class="section-heading text-white text-center mb-12">Get In Touch</h3>
+                <p class="text-content-14 mb-8">Have a question or want to collaborate? Reach out to me!</p>
+                <div class="card-bg-dark p-8 rounded-lg shadow-md text-left">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-content-14 font-medium text-gray-200 mb-2">Name</label>
+                            <input type="text" id="name" name="name" class="w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-[#00FFFF] focus:border-[#00FFFF] text-content-14 bg-gray-700 text-white" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-content-14 font-medium text-gray-200 mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-[#00FFFF] focus:border-[#00FFFF] text-content-14 bg-gray-700 text-white" placeholder="your.email@example.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-content-14 font-medium text-gray-200 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="6" class="w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-[#00FFFF] focus:border-[#00FFFF] text-content-14 bg-gray-700 text-white" placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-[#00FFFF] text-gray-900 font-bold py-3 px-6 rounded-md shadow-lg hover:bg-[#00cccc] transition duration-300 transition-transform hover:scale-105 text-content-14">Send Message</button>
+                    </form>
+                </div>
+                <div class="mt-12 text-content-14">
+                    <p>You can also reach me directly at: <a href="mailto:sudarshanreddy.depaul@gmail.com" class="font-medium hover:underline link-accent">sudarshanreddy.depaul@gmail.com</a></p>
+                    <p>Phone: 8723301990</p>
+                    <div class="flex justify-center gap-6 mt-6">
+                        <a href="https://www.linkedin.com/in/sudarshan-reddy-rajapurada-252b59156" target="_blank" class="hover:text-[#00FFFF] transition duration-300">LinkedIn</a>
+                        <!-- Replace with your actual GitHub URL if you have one -->
+                        <a href="#" target="_blank" class="hover:text-[#00FFFF] transition duration-300">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center rounded-t-lg mt-auto">
+        <p>&copy; <span id="current-year"></span> Sudarshan Reddy Rajapurada. All rights reserved.</p>
+        <p class="text-xs mt-2">Built with <span class="text-red-500">&hearts;</span> and Tailwind CSS.</p>
+    </footer>
+
+    <script>
+        // Dynamically set the current year in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // JavaScript for toggling project descriptions
+        function toggleProjectDescription(titleContainer) {
+            const description = titleContainer.nextElementSibling;
+            const icon = titleContainer.querySelector('.toggle-icon');
+
+            if (description.classList.contains('show')) {
+                description.classList.remove('show');
+                icon.classList.remove('rotate');
+            } else {
+                // Set max-height to scrollHeight to enable smooth 'slide down'
+                description.style.maxHeight = description.scrollHeight + "px";
+                description.classList.add('show');
+                icon.classList.add('rotate');
+            }
+        }
+    </script>
+</body>
+</html>
